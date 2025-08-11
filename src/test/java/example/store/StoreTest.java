@@ -51,4 +51,20 @@ public class StoreTest {
         Assertions.assertThatExceptionOfType(RuntimeException.class)
                 .isThrownBy(() -> store.buy(product, customer));
     }
+
+    @Test
+    void buy_insufficientBalance_shouldThrowException() {
+        // Arrange
+        AccountManager accountManager = mock(AccountManager.class);
+        when(accountManager.withdraw(any(), anyInt())).thenReturn("failure");
+        Store store = new StoreImpl(accountManager);
+        Product product = new Product();
+        product.setQuantity(4);
+        Customer customer = new Customer();
+
+        // Act & Assert
+        Assertions.assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> store.buy(product, customer))
+                .withMessageContaining("Payment failure: failure");
+    }
 }
