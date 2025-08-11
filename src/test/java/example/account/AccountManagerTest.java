@@ -42,4 +42,20 @@ public class AccountManagerTest {
         Assertions.assertThat(c.getBalance()).isEqualTo(100);
     }
 
+    @Test
+    void givenCustomerWithInsufficientBalanceAndCreditAllowed_whenWithdraw_thenSucceed() {
+        // Arrange
+        AccountManager am = new AccountManagerImpl();
+        Customer c = new Customer();
+        c.setBalance(100);
+        c.setCreditAllowed(true);
+        c.setVip(false);
+
+        // Act
+        String result = am.withdraw(c, 200);
+
+        // Assert
+        Assertions.assertThat(result).isEqualTo("success");
+        Assertions.assertThat(c.getBalance()).isEqualTo(-100);
+    }
 }
