@@ -5,12 +5,23 @@ import example.account.Customer;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+/**
+ * Unit tests for the {@link StoreImpl} class.
+ * <br>
+ * Test naming scheme: {methodName}_{condition}_{expectedOutcome}
+ */
 public class StoreTest {
 
     @Test
-    void test() {
+    void buy_sufficientBalanceAndStock_shouldReduceProductQuantity() {
         // Arrange
-        AccountManager accountManager = new AccountManagerStub();
+        AccountManager accountManager = mock(AccountManager.class);
+        when(accountManager.withdraw(any(), anyInt())).thenReturn("success");
         Store store = new StoreImpl(accountManager);
         Product product = new Product();
         product.setQuantity(4);
@@ -22,18 +33,4 @@ public class StoreTest {
         // Assert
         Assertions.assertEquals(3, product.getQuantity());
     }
-
-    static class AccountManagerStub implements AccountManager {
-
-        @Override
-        public void deposit(Customer customer, int amount) {
-
-        }
-
-        @Override
-        public String withdraw(Customer customer, int amount) {
-            return "success";
-        }
-    }
-
 }
