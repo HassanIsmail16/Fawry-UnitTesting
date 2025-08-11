@@ -2,7 +2,7 @@ package example.store;
 
 import example.account.AccountManager;
 import example.account.Customer;
-import org.junit.jupiter.api.Assertions;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -31,6 +31,6 @@ public class StoreTest {
         store.buy(product, customer);
 
         // Assert
-        Assertions.assertEquals(3, product.getQuantity());
+        Assertions.assertThat(product.getQuantity()).isEqualTo(3);
     }
 }
