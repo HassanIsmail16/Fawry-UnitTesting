@@ -33,4 +33,22 @@ public class StoreTest {
         // Assert
         Assertions.assertThat(product.getQuantity()).isEqualTo(3);
     }
+
+    @Test
+    void buy_insufficientQuantity_shouldThrowException() {
+        // Arrange
+        AccountManager accountManager = mock(AccountManager.class);
+        when(accountManager.withdraw(any(), anyInt())).thenReturn("success");
+        Store store = new StoreImpl(accountManager);
+        Product product = new Product();
+        product.setQuantity(1);
+        Customer customer = new Customer();
+
+        // Act
+        store.buy(product, customer);
+
+        // Assert
+        Assertions.assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> store.buy(product, customer));
+    }
 }
