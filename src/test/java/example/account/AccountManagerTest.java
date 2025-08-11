@@ -1,8 +1,13 @@
 package example.account;
 
-import org.junit.jupiter.api.Assertions;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Unit tests for the {@link AccountManagerImpl} class.
+ * <br>
+ * Test naming scheme: given{precondition}_when{action}_then{expectedOutcome}
+ */
 public class AccountManagerTest {
 
     @Test
@@ -16,8 +21,10 @@ public class AccountManagerTest {
         String result = am.withdraw(c, 500);
 
         // Assert
-        Assertions.assertEquals("success", result);
-        Assertions.assertEquals(500, c.getBalance());
+        Assertions.assertThat(result).isEqualTo("success");
+        Assertions.assertThat(c.getBalance()).isEqualTo(500);
     }
+
+
 
 }
