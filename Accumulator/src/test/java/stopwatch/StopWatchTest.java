@@ -3,10 +3,15 @@ package stopwatch;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Test class for StopWatch.
+ * <br>
+ * Test naming scheme: {methodName}_{condition}_{expectedOutcome}
+ */
 public class StopWatchTest {
 
     @Test
-    void test1() {
+    void getMinutes_positiveValueRecorded_shouldEqual14() {
         StopWatch stopWatch = new StopWatch();
         stopWatch.record(14);
         int minutes = stopWatch.getMinutes();
@@ -14,7 +19,7 @@ public class StopWatchTest {
     }
 
     @Test
-    void test2() {
+    void getMinutes_negativeValueRecorded_shouldEqual0() {
         StopWatch stopWatch = new StopWatch();
         stopWatch.record(-5);
         int minutes = stopWatch.getMinutes();
